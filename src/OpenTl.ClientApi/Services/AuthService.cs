@@ -81,6 +81,20 @@
         }
 
         /// <inheritdoc />
+        public async Task<bool> SendSMSAsync(string phoneNumber, string phoneCodeHash, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            Guard.That(phoneNumber, nameof(phoneNumber)).IsNotNullOrWhiteSpace();
+
+            var request = new RequestSendSMS
+            {
+                PhoneNumber = phoneNumber,
+                PhoneCodeHash = phoneCodeHash
+            };
+
+            return await RequestSender.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task LogoutAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             await LogoutService.Logout(cancellationToken);

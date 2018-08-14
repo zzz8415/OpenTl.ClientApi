@@ -33,6 +33,13 @@
         /// <returns>Information about the sent code</returns>
         Task<ISentCode> SendCodeAsync(string phoneNumber, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <summary>Forces sending an SMS message to the specified phone number. Use this method if auth.sentAppCode was returned as a response to auth.sendCode, but the user can't reach the device with Telegram.</summary>
+        /// <param name="phoneNumber">Phone number</param>
+        /// <param name="phoneCodeHash">Phone code hash</param>
+        /// <param name="cancellationToken">Сancellation token</param>
+        /// <returns>Information about the sent code</returns>
+        Task<bool> SendSMSAsync(string phoneNumber, string phoneCodeHash, CancellationToken cancellationToken = default(CancellationToken));
+
         /// <summary>The second stage of authentication. Send the received authentication code</summary>
         /// <param name="phoneNumber">Phone number</param>
         /// <param name="sentCode">
